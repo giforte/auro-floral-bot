@@ -12,7 +12,9 @@ def send_message(to, text):
     url = f"https://graph.facebook.com/v19.0/{PHONE_NUMBER_ID}/messages"
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "Content-Type": "application/json"}
     payload = {"messaging_product": "whatsapp", "to": to, "type": "text", "text": {"body": text}}
-    requests.post(url, headers=headers, json=payload)
+    response = requests.post(url, headers=headers, json=payload)
+    print(f"STATUS: {response.status_code}")
+    print(f"RESPONSE: {response.text}")
 
 def get_response(message, state):
     msg = message.strip().lower()
