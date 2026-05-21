@@ -4,6 +4,14 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+@app.route("/register", methods=["GET"])
+def register_number():
+    url = f"https://graph.facebook.com/v19.0/{PHONE_NUMBER_ID}/register"
+    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}", "Content-Type": "application/json"}
+    payload = {"messaging_product": "whatsapp", "pin": "000000"}
+    response = requests.post(url, headers=headers, json=payload)
+    return jsonify(response.json())
+
 VERIFY_TOKEN = "auro_floral_token"
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 PHONE_NUMBER_ID = os.environ.get("PHONE_NUMBER_ID")
